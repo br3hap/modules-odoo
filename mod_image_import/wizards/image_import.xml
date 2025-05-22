@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View image_import form -->
+    <record id="view_image_import_form" model="ir.ui.view">
+        <field name="name">view.image_import.form</field>
+        <field name="model">image.import</field>
+        <field name="arch" type="xml">
+            <form string="Importar imagenes General">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="model_id"/>
+                        </group>
+                        <group>
+                            <field name="field_reference_id" 
+                                domain="[('model_id', '=', model_id), 
+                                ('ttype', '=', 'char')]"/>
+                            <field name="field_imagen_id"
+                                domain="[('model_id', '=', model_id), 
+                                ('ttype', '=', 'binary')]"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="image_ids" widget="many2many_binary" required="1"/>
+                    </group>
+                </sheet>
+
+                <footer>
+                    <button name="import_image" type="object" string="Importar" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- Action image_import -->
+    <record id="action_image_import" model="ir.actions.act_window">
+        <field name="name">Importar imágenes General</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">image.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem 
+        name="Importar Imágenes" 
+        id="import_image_menu" 
+        parent='base.menu_management'
+        sequence='110'
+        action="action_image_import"
+        />
+
+</odoo>
